@@ -1,0 +1,25 @@
+{
+  "name": "experiments-server",
+  "version": "1.0.0",
+  "description": "This is TAU social cognition lab's experiemnts server",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/socialCognition/experiments-server.git"
+  },
+  "author": "TAU Social Cognition Lab",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/socialCognition/experiments-server/issues"
+  },
+  "homepage": "https://github.com/socialCognition/experiments-server#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.4"
+  }
+}
