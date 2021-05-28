@@ -28,9 +28,9 @@ exports.find = (req, res) => {
 }
 
 exports.create = (req, res) => {
-    fs.appendFileSync("/home/lab/server-logs.txt", "started create function at " + new Date(), () => {})
+    fs.appendFile("/home/lab/server-logs.txt", "started create function at " + new Date(), () => {})
     if (!req.body.data.results) {
-        fs.appendFileSync("/home/lab/server-logs.txt", "got empty results at " + new Date(), () => {})
+        fs.appendFile("/home/lab/server-logs.txt", "got empty results at " + new Date(), () => {})
         return res.status(400).send({
             message: "empty results"
         });
