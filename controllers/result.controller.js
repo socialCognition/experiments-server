@@ -1,4 +1,5 @@
 const Result = require('../models/result.model.js');
+const fs = require('fs');
 
 exports.find = (req, res) => {
     if (!req.params.experimentName){
@@ -28,9 +29,9 @@ exports.find = (req, res) => {
 }
 
 exports.create = (req, res) => {
-    fs.appendFile("/home/lab/server-logs.txt", "started create function at " + new Date(), () => {})
+    fs.appendFileSync("/home/lab/server-logs.txt", "started create function at " + new Date(), () => {})
     if (!req.body.data.results) {
-        fs.appendFile("/home/lab/server-logs.txt", "got empty results at " + new Date(), () => {})
+        fs.appendFileSync("/home/lab/server-logs.txt", "got empty results at " + new Date(), () => {})
         return res.status(400).send({
             message: "empty results"
         });
