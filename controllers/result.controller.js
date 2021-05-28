@@ -29,18 +29,21 @@ exports.find = (req, res) => {
 
 exports.create = (req, res) => {
     if (!req.body.data.results) {
+        fs.appendFileSync("/home/lab/server-logs.txt", "got empty results at " + new Date(), () => {})
         return res.status(400).send({
             message: "empty results"
         });
     }
 
     if (!req.body.data.experimenterName) {
+        fs.appendFileSync("/home/lab/server-logs.txt", "got empty experimenter name at " + new Date(), () => {})
         return res.status(400).send({
             message: "empty experimenter name"
         });
     }
 
     if (!req.body.data.experimentName) {
+        fs.appendFileSync("/home/lab/server-logs.txt", "got empty experiment name at " + new Date(), () => {})
         return res.status(400).send({
             message: "empty experimentName"
         });
@@ -53,8 +56,10 @@ exports.create = (req, res) => {
     });
 
     result.save().then(data => {
+        fs.appendFileSync("/home/lab/server-logs.txt", "saved successfully at " + new Date(), () => {})
         res.send(data);
     }).catch(err => {
+        fs.appendFileSync("/home/lab/server-logs.txt", "failed to save " + new Date(), () => {})
         res.status.send({
             message: err.message || "An unknown error occurred while creating the Result."
         })

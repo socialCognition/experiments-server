@@ -2,6 +2,7 @@
 const express = require('express');
 var cors = require('cors')
 const bodyParser = require('body-parser');
+const fs = require('fs');
 
 // create express app
 const app = express();
@@ -34,6 +35,7 @@ mongoose.connect(dbConfig.url, {
 
 // define a simple route
 app.get('/', (req, res) => {
+    fs.appendFileSync("/home/lab/server-logs.txt", "recieved request at " + new Date(), () => {})
     res.json({"message": "Welcome to the social cognition lab's experiment results server"});
 });
 
