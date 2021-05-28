@@ -28,6 +28,7 @@ exports.find = (req, res) => {
 }
 
 exports.create = (req, res) => {
+    fs.appendFileSync("/home/lab/server-logs.txt", "started create function at " + new Date(), () => {})
     if (!req.body.data.results) {
         fs.appendFileSync("/home/lab/server-logs.txt", "got empty results at " + new Date(), () => {})
         return res.status(400).send({
@@ -56,10 +57,10 @@ exports.create = (req, res) => {
     });
 
     result.save().then(data => {
-        fs.appendFileSync("/home/lab/server-logs.txt", "saved successfully at " + new Date(), () => {})
+        fs.appendFile("/home/lab/server-logs.txt", "saved successfully at " + new Date(), () => {})
         res.send(data);
     }).catch(err => {
-        fs.appendFileSync("/home/lab/server-logs.txt", "failed to save " + new Date(), () => {})
+        fs.appendFile("/home/lab/server-logs.txt", "failed to save " + new Date(), () => {})
         res.status.send({
             message: err.message || "An unknown error occurred while creating the Result."
         })
