@@ -6,7 +6,7 @@ const fs = require('fs');
 
 // create express app
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 7000;
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json({limit: '25mb'}));
@@ -25,7 +25,8 @@ mongoose.Promise = global.Promise;
 
 // Connecting to the database
 mongoose.connect(dbConfig.url, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 }).then(() => {
     console.log("Successfully connected to the database");    
 }).catch(err => {
@@ -44,5 +45,5 @@ require('./routes/result.routes')(app);
 
 // listen for requests
 app.listen(port, () => {
-    console.log("Server is listening on port 3000");
+    console.log("Server is listening on port" + port);
 });
