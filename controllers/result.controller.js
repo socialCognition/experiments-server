@@ -1,5 +1,6 @@
 const Result = require('../models/result.model.js');
 const fs = require('fs');
+//const security = require ('../config/security.config.js');
 
 exports.findAllExperimenters = (req, res) => {
     Result.distinct("experimenterName").then(result => {
@@ -78,12 +79,6 @@ exports.find = (req, res) => {
 
 exports.create = (req, res) => {
     fs.appendFileSync("/home/lab/server-logs.txt", "started create function at " + new Date(), () => {})
-    if (!req.body.data.results) {
-        fs.appendFileSync("/home/lab/server-logs.txt", "got empty results at " + new Date(), () => {})
-        return res.status(400).send({
-            message: "empty results"
-        });
-    }
 
     if (!req.body.data.experimenterName) {
         fs.appendFileSync("/home/lab/server-logs.txt", "got empty experimenter name at " + new Date(), () => {})
@@ -105,7 +100,7 @@ exports.create = (req, res) => {
         subjectId: req.body.data.subjectId ? req.body.data.subjectId : "",
         condition: req.body.data.condition ? req.body.data.condition : "",
         version: req.body.data.version ? req.body.data.version : "", 
-        results: req.body.data.results
+        results: req.body.data.results ? req.body.data.results : ""
     });
 
     result.save().then(data => {
