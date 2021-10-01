@@ -1,6 +1,12 @@
 const Result = require('../models/result.model.js');
-const fs = require('fs');
 //const security = require ('../config/security.config.js');
+const logger = require("../logger/logger");
+
+exports.getLogs = (req, res) => {
+    var logs = logger.getLogs();
+
+    res.send(logs);
+}
 
 exports.findAllExperimenters = (req, res) => {
     Result.distinct("experimenterName").then(result => {
@@ -78,17 +84,16 @@ exports.find = (req, res) => {
 }
 
 exports.create = (req, res) => {
-    fs.appendFileSync("/home/lab/server-logs.txt", "started create function at " + new Date(), () => {})
-
+    logger.logInfo("create", req, "starting create process");
     if (!req.body.data.experimenterName) {
-        fs.appendFileSync("/home/lab/server-logs.txt", "got empty experimenter name at " + new Date(), () => {})
+        logger.logError("create", req, "Experimenter name missing");
         return res.status(400).send({
             message: "empty experimenter name"
         });
     }
 
     if (!req.body.data.experimentName) {
-        fs.appendFileSync("/home/lab/server-logs.txt", "got empty experiment name at " + new Date(), () => {})
+        logger.logError("create", req, "Experiment name missing");
         return res.status(400).send({
             message: "empty experimentName"
         });
@@ -104,10 +109,10 @@ exports.create = (req, res) => {
     });
 
     result.save().then(data => {
-        fs.appendFile("/home/lab/server-logs.txt", "saved successfully at " + new Date(), () => {})
+        logger.logSuccess("create", req, "Saved new result");
         res.send(data);
     }).catch(err => {
-        fs.appendFile("/home/lab/server-logs.txt", "failed to save " + new Date(), () => {})
+        logger.logError("create", req, err);
         res.status.send({
             message: err.message || "An unknown error occurred while creating the Result."
         })
