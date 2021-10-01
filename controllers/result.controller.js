@@ -56,6 +56,16 @@ exports.findByExprimenter = (req, res) => {
     })
 }
 
+exports.authorisation = (req, res) => {
+    if (req.body.gui_password != security.guiPassword) {
+        return res.status(401).send({
+            message: "Incorrect password"
+        });
+    }
+
+    res.send("authorised");
+}
+
 exports.find = (req, res) => {
     if (req.body.social_cog_security_token != security.token) {
         return res.status(400).send({

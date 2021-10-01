@@ -11,4 +11,6 @@ module.exports = (app) => {
     app.get('/results/experimenters/name/:experimenterName', results.findByExprimenter)
 
     app.get('/logs', results.getLogs)
+
+    app.post('/authorisation', results.authorisation)
 }
