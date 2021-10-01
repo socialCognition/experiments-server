@@ -1,5 +1,5 @@
 const Result = require('../models/result.model.js');
-//const security = require ('../config/security.config.js');
+const security = require ('../config/security.config.js');
 const logger = require("../logger/logger");
 
 exports.getLogs = (req, res) => {
@@ -57,6 +57,12 @@ exports.findByExprimenter = (req, res) => {
 }
 
 exports.find = (req, res) => {
+    if (req.body.social_cog_security_token != security.token) {
+        return res.status(400).send({
+            message: "security token is missing"
+        });
+    }
+
     if (!req.params.experimentName){
         return res.status(400).send({
             message: "empty experiment name"

@@ -4,7 +4,7 @@ module.exports = (app) => {
     // create a new result
     app.post('/results', results.create);
 
-    app.get('/results/:experimentName', results.find)
+    app.post('/results/:experimentName', results.find)
 
     app.get('/results/experimenters/getExperimenters', results.findAllExperimenters)
 
